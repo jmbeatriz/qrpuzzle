@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/jmbeatriz/qrpuzzle/puzzle"
-	"github.com/jmbeatriz/qrpuzzle/utils"
+	"github.com/jmbeatriz/qrpuzzle/colorutils"
 	"image"
 	"image/png"
 	"log"
@@ -57,19 +57,19 @@ func findPiece(puzzle *puzzle.Puzzle, row int, column int, initPos int) (bool, i
 
 				//First Column
 				if column == 0 {
-					if !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
+					if !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
 						continue
 					}
 
 					// Rows from second to last in first Column
 					if row > 0 {
-						if !utils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) {
+						if !colorutils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) {
 							continue
 						}
 
 						//Middle of first Column
 						if row < 19 {
-							if utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
+							if colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
 								continue
 							}
 						}
@@ -78,19 +78,19 @@ func findPiece(puzzle *puzzle.Puzzle, row int, column int, initPos int) (bool, i
 
 				//Last Column
 				if column == 19 {
-					if !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) {
+					if !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) {
 						continue
 					}
 
 					// Rows from second to last in last Column
 					if row > 0 {
-						if !utils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) {
+						if !colorutils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) {
 							continue
 						}
 
 						//Middle of last Column
 						if row > 0 && row < 19 {
-							if utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) {
+							if colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) {
 								continue
 							}
 
@@ -100,19 +100,19 @@ func findPiece(puzzle *puzzle.Puzzle, row int, column int, initPos int) (bool, i
 
 				//Fisrt Row
 				if row == 0 {
-					if !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) {
+					if !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) {
 						continue
 					}
 
 					// Columns from second to last in first Row
 					if column > 0 {
-						if !utils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorDownRight(), puzzle.Piece(p).GetColorDownLeft()) {
+						if !colorutils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorDownRight(), puzzle.Piece(p).GetColorDownLeft()) {
 							continue
 						}
 
 						// Middle of first Row
 						if column < 19 {
-							if utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) {
+							if colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) {
 								continue
 							}
 						}
@@ -121,19 +121,19 @@ func findPiece(puzzle *puzzle.Puzzle, row int, column int, initPos int) (bool, i
 
 				//Last Row
 				if row == 19 {
-					if !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
+					if !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
 						continue
 					}
 
 					// Columns from second to last in last Row
 					if column > 0 {
-						if !utils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorUpRight(), puzzle.Piece(p).GetColorUpLeft()) || !utils.IsSameColor(puzzle.BoardCell(column,row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) || !utils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) {
+						if !colorutils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorUpRight(), puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsSameColor(puzzle.BoardCell(column,row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) {
 							continue
 						}
 
 						// Middle of last Row
 						if column < 19 {
-							if utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
+							if colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || !colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
 								continue
 							}
 						}
@@ -142,11 +142,11 @@ func findPiece(puzzle *puzzle.Puzzle, row int, column int, initPos int) (bool, i
 
 				//Center of the puzzle
 				if row > 0 && column > 0 && row < 19 && column < 19 {
-					if utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || utils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
+					if colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpRight()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownRight()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorUpLeft()) || colorutils.IsBlackOrWhite(puzzle.Piece(p).GetColorDownLeft()) {
 						continue
 					}
 
-					if !utils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) || !utils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) || !utils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorUpRight(), puzzle.Piece(p).GetColorUpLeft()) || !utils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorDownRight(), puzzle.Piece(p).GetColorDownLeft()) {
+					if !colorutils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownRight(), puzzle.Piece(p).GetColorUpRight()) || !colorutils.IsSameColor(puzzle.BoardCell(column, row-1).GetColorDownLeft(), puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorUpRight(), puzzle.Piece(p).GetColorUpLeft()) || !colorutils.IsSameColor(puzzle.BoardCell(column-1, row).GetColorDownRight(), puzzle.Piece(p).GetColorDownLeft()) {
 						continue
 					}
 
